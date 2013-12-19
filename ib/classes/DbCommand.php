@@ -27,8 +27,8 @@ class DbCommand
      */
     public function getCompleteTable($table='')
     {
-        if(strpos('{{', $table)!==false)
-            return IB::app()->db_config['prefix'].$table;
+        if(strpos($table, '{{')!==false)
+            return IB::app()->db_config['prefix'].ltrim(rtrim($table, '}}'), '{{');
         else
             return $table;
     }

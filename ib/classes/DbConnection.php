@@ -50,7 +50,7 @@ class DbConnection
     /**
      * get
      */
-    private function getConnection()
+    public function getConnection()
     {
         return $this->_conn;
     }
