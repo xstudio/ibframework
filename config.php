@@ -13,8 +13,12 @@ return array(
     //website title
     'title'=>'',
     'basePath'=>dirname(__FILE__).'/protected/',
+    'publicPath'=>dirname(__FILE__).'/public/',
     'defaultController'=>'site',
-
+    //import class or director
+    'import'=>array(
+        'application.extension.*'
+    ),
     //PDO database config
     'db_config'=>array(
         'connString'=>'mysql:host=localhost;dbname=sep',

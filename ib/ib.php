@@ -11,16 +11,17 @@
 $include_path=get_include_path();                         
 //framework class path
 $include_path.=PATH_SEPARATOR.dirname(__FILE__)."/classes/" ;    
-$include_path.=PATH_SEPARATOR.dirname($config)."/protected/controllers/" ;   
-$include_path.=PATH_SEPARATOR.dirname($config)."/protected/models/" ;     
+$include_path.=PATH_SEPARATOR.dirname($config)."/protected/models/" ; 
+$include_path.=PATH_SEPARATOR.dirname($config)."/protected/controllers/" ;  
 $include_path.=PATH_SEPARATOR.dirname($config)."/protected/views/" ;    
 set_include_path($include_path);
 
 //class autoload
-function __autoload($class_name)
+function autoLoad($class_name)
 {
     include($class_name.'.php');
 }
+spl_autoload_register('autoLoad');
 
 class IB
 {   
@@ -47,6 +48,34 @@ class IB
         }
         return null;
     }
+    /**
+     * import file or directory
+     */
+    public static function import($aliass)
+    {
+        if(empty($aliass)) return;
+        if(is_array($aliass))
+        {
+            foreach($aliass as $alias)
+                self::loadFile($alias);
+        }
+        else
+            self::loadFile($aliass);
 
+    }
+    private static function loadFile($alias='')
+    {
+        global $config;
+        $ph=explode('.', $alias);
+        $ph_path=implode('/', array_slice($ph, 1, count($ph)-2));
 
+        if($ph[count($ph)-1]=='*') //directory
+        {
+            $include_path=get_include_path();    
+            $include_path.=PATH_SEPARATOR.dirname($config).'/protected/'.$ph_path.'/';    
+            set_include_path($include_path);
+        }
+        else if(file_exists($file=dirname($config).'/protected/'.$ph_path.'/'.ucfirst($ph[count($ph)-1]).'.php')) //file
+            include($file);
+    }
 }

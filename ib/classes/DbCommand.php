@@ -68,7 +68,7 @@ class DbCommand
      */
     public function from($val='')
     {
-        $this->_sql.=' FROM '.$this->getCompeleteTable($val);
+        $this->_sql.=' FROM '.$this->getCompleteTable($val);
         return $this;
     }
     /**

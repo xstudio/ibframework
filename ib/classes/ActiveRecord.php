@@ -89,12 +89,10 @@ class ActiveRecord
         return $this->_primaryKey;
     }
     /**
-     * _primaryKey setter
+     * 
      */
-    public function setPrimayKey($value)
-    {
-        $this->_primaryKey=$value;
-    }
+    public function primaryKey(){}
+
     /**
      * _attributes getter
      */
@@ -119,26 +117,19 @@ class ActiveRecord
             {
                 $this->_attributes[$column['Field']]='';
                 if($column['Key']=='PRI')
+                {
+                    //primarykey  value set null for easy insert
+                    $this->_attributes[$column['Field']]=null;
                     $this->_primaryKey=$column['Field'];
+                }
             }
         }
         else
         {
             foreach($attributes as $key=>$value)
-                if(isset($this->_attributes[$key]))
+                if(isset($this->_attributes[$key]) || $key==$this->_primaryKey)
                     $this->_attributes[$key]=$value;
         }
-    }
-
-    /**
-     * judge _attributes is new record
-     */
-    private function isNewRecord()
-    {
-        $bind_param=':'.$this->_primaryKey;
-        return $this->_cmd->select('COUNT(*)')->from($this->tableName())
-            ->where($this->_primaryKey.'='.$bind_param, array($bind_param=>$this->_attributes[$this->_primaryKey]))
-            ->queryScalar()>0;
     }
 
     /**
@@ -176,20 +167,15 @@ class ActiveRecord
         return $this->_cmd->update($this->tableName(), $set, $where, $bind);
     }
     /**
-     * update _attributes to db
+     * update _attributes to db by primary key
      */
     public function update()
     {
-        if($this->isNewRecord())
-            return $this->save();
-        else
-        {
-            $bind_param=':'.$this->_primaryKey;
-            $bind_value=$this->_attributes[$this->_primaryKey];
-            unset($this->_attributes[$this->_primaryKey]);
-            $where=$this->_primaryKey.'='.$bind_param;
-            return $this->_cmd->update($this->tableName(), $this->_attributes, $where, array($bind_param=>$bind_value));
-        }
+        $bind_param=':'.$this->_primaryKey;
+        $bind_value=$this->_attributes[$this->_primaryKey];
+        unset($this->_attributes[$this->_primaryKey]);
+        $where=$this->_primaryKey.'='.$bind_param;
+        return $this->_cmd->update($this->tableName(), $this->_attributes, $where, array($bind_param=>$bind_value));
     }
     /**
      * find one record from db where=$where
@@ -198,15 +184,9 @@ class ActiveRecord
      */
     public function find($where='', $bind=array())
     {
-        return $this->_cmd->select()->from($this->tableName())->where($where, $bind)->queryRow();
-    }
-    public function findBySql()
-    {
-    
-    }
-    public function findByAttributes($attributes=array(), $where='', $bind=array())
-    {
-    
+        $result=$this->_cmd->select()->from($this->tableName())->where($where, $bind)->queryRow();
+        $this->setAttributes($result);
+        return $result;
     }
     /**
      * find one record from db by primarykey
@@ -214,9 +194,12 @@ class ActiveRecord
      */
     public function findByPk($pk='')
     {
+        echo $this->_primaryKey;
         $bind_param=':'.$this->_primaryKey;
-        return $this->_cmd->select()->from($this->tableName())
+        $result=$this->_cmd->select()->from($this->tableName())
             ->where($this->_primaryKey.'='.$bind_param, array($bind_param=>$pk))->queryRow();
+        $this->setAttributes($result);
+        return $result;
     }
     /**
      * find all record from db where=$where
@@ -227,14 +210,33 @@ class ActiveRecord
     {   
         return $this->_cmd->select()->from($this->tableName())->where($where, $bind)->queryAll();
     }
-
-    public function findAllByAttributes()
+    /**
+     * find one record by attributes like order/limit/offset
+     * @param array $attributes key->order/limit/offset value->param value
+     * @param string $where
+     * @param array $bind
+     */
+    public function findByAttributes($attributes=array(), $where='', $bind=array())
     {
-    
+        $result=$this->_cmd->select()->from($this->tableName())->where($where, $bind);
+        foreach($attributes as $key=>$value)
+            $result->$key($value);
+        $result=$result->queryRow();
+        $this->setAttributes($result);
+        return $result;
     }
-    public function findAllBySql()
+    /**
+     * find all record by attributes like order/limit
+     * @param array $attributes 
+     * @param string $where
+     * @param array $bind
+     */
+    public function findAllByAttributes($attributes=array(), $where='', $bind=array())
     {
-    
+        $result=$this->_cmd->select()->from($this->tableName())->where($where, $bind);
+        foreach($attributes as $key=>$value)
+            $result->$key($value);
+        return $result->queryAll();
     }
     /**
      * get row count where=$where
@@ -244,22 +246,5 @@ class ActiveRecord
     public function rowCount($where, $bind=array())
     {
         return $this->_cmd->select('COUNT(*)')->from($this->tableName())->where($where, $bind)->queryScalar();
-    }
-    public function rowCountByAttributes($where, $bind=array())
-    {
-        return $this->_cmd->select('COUNT(*)')->from($this->tableName())->where($where, $bind)->queryScalar();
-    }
-    public function rowCountBySql($where, $bind=array())
-    {
-        return $this->_cmd->select('COUNT(*)')->from($this->tableName())->where($where, $bind)->queryScalar();
-    }
-
-    public function deleteBySql()
-    {
-    
-    }
-    public function updateBySql()
-    {
-    
     }
 }

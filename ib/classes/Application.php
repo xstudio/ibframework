@@ -25,19 +25,14 @@ class Application
         if(!empty($config))
         {
             foreach($config as $key=>$value)
+            {
                 $this->$key=$value;
+                if($key=='db_config')   //set application db 
+                    $this->db=new DbConnection();
+                elseif($key=='import')  //import file or directory
+                    IB::import($value);
+            }
         }
-    }
-
-    public function __get($var)
-    {
-        if(!isset($this->$var))
-        {
-            if($var=='db')
-                return $this->db=new DbConnection();
-        }
-
-        return $this->$var;
     }
     /**
      * execute action of action
@@ -61,5 +56,5 @@ class Application
     {
         return $this->db;
     }
-    
+
 }
