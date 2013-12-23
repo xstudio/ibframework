@@ -6,11 +6,15 @@ class Chat extends ActiveRecord
     {
         return parent::model($className);
     }
-    /*
-    public function tableName()
+    
+    /*public function tableName()
     {
         //return '{{user}}';
-        return 'chat'
+        return '{{chat}}';
     }
-     */
+    public function primaryKey()
+    {
+        //return '{{user}}';
+        return 'chat_to_user';
+    }*/
 }

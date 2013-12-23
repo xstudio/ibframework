@@ -16,23 +16,18 @@ class DbConnection
     private $_cmd;
     private $_transaction;
 
-    public function __construct($conn=null)
+    public function __construct($db_config=array())
     {
-        if($conn!=null)
-            $this->_conn=$conn;
-        else
+        if(!empty($db_config))
         {
-            if(isset(IB::app()->db_config) && $db_config=IB::app()->db_config)
+            try
             {
-                try
-                {
-                    $this->_conn=@new PDO($db_config['connString'], $db_config['username'], $db_config['password']);
-                    $this->_conn->query("set names {$db_config['charset']}");
-                }
-                catch(PDOException $e)
-                {
-                    die('Connection failed : '.$e->getMessage());
-                }
+                $this->_conn=@new PDO($db_config['connString'], $db_config['username'], $db_config['password']);
+                $this->_conn->query("set names {$db_config['charset']}");
+            }
+            catch(PDOException $e)
+            {
+                die('Connection failed : '.$e->getMessage());
             }
         }
     }  
@@ -84,6 +79,6 @@ class DbConnection
      */
     public function beginTransaction()
     {
-        return $this->_transaction=new Transaction();
+        return $this->_transaction=new Transaction($this->_conn);
     }
 }

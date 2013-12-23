@@ -22,12 +22,17 @@ class ActiveRecord
      */
     private $_attributes=array();
     /**
+     * table name
+     */
+    private $_tableName;
+    /**
      * table primary key
      */
     private $_primaryKey;
 
     public function __construct()
     {
+        $this->_tableName=strtolower(get_class($this));
         $this->_cmd=IB::app()->db->createCommand();
         $this->setAttributes();
     }
@@ -40,14 +45,6 @@ class ActiveRecord
             return self::$_models[$className];
         else
             return self::$_models[$className]=new $className;
-    }
-    /**
-     * get table name default className
-     * if you want to change it, child class must override this function
-     */
-    public function tableName()
-    {
-        return strtolower(get_class($this));
     }
     /**
      * set object variable
@@ -82,16 +79,19 @@ class ActiveRecord
             return null;
     }
     /**
-     * _primaryKey getter
+     * if child want to change _tableName can override it 
      */
-    public function getPrimayKey()
+    public function primaryKey()
     {
         return $this->_primaryKey;
     }
     /**
-     * 
+     * if child want to change _tableName can override it 
      */
-    public function primaryKey(){}
+    public function tableName()
+    {
+        return $this->_tableName;
+    }
 
     /**
      * _attributes getter
@@ -127,7 +127,7 @@ class ActiveRecord
         else
         {
             foreach($attributes as $key=>$value)
-                if(isset($this->_attributes[$key]) || $key==$this->_primaryKey)
+                if(isset($this->_attributes[$key]) || $key==$this->primaryKey())
                     $this->_attributes[$key]=$value;
         }
     }
@@ -153,8 +153,8 @@ class ActiveRecord
      */
     public function deleteByPk($pk='')
     {
-        $bind_param=':'.$this->_primaryKey;
-        return $this->_cmd->delete($this->tableName(), $this->_primaryKey.'='.$bind_param, array($bind_param=>$pk));
+        $bind_param=':'.$this->primaryKey();
+        return $this->_cmd->delete($this->tableName(), $this->primaryKey().'='.$bind_param, array($bind_param=>$pk));
     }
     /**
      * update all record where=$where
@@ -171,10 +171,10 @@ class ActiveRecord
      */
     public function update()
     {
-        $bind_param=':'.$this->_primaryKey;
-        $bind_value=$this->_attributes[$this->_primaryKey];
-        unset($this->_attributes[$this->_primaryKey]);
-        $where=$this->_primaryKey.'='.$bind_param;
+        $bind_param=':'.$this->primaryKey();
+        $bind_value=$this->_attributes[$this->primaryKey()];
+        unset($this->_attributes[$this->primaryKey()]);
+        $where=$this->primaryKey().'='.$bind_param;
         return $this->_cmd->update($this->tableName(), $this->_attributes, $where, array($bind_param=>$bind_value));
     }
     /**
@@ -194,10 +194,9 @@ class ActiveRecord
      */
     public function findByPk($pk='')
     {
-        echo $this->_primaryKey;
-        $bind_param=':'.$this->_primaryKey;
+        $bind_param=':'.$this->primaryKey();
         $result=$this->_cmd->select()->from($this->tableName())
-            ->where($this->_primaryKey.'='.$bind_param, array($bind_param=>$pk))->queryRow();
+            ->where($this->primaryKey().'='.$bind_param, array($bind_param=>$pk))->queryRow();
         $this->setAttributes($result);
         return $result;
     }

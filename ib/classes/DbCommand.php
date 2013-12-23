@@ -219,7 +219,7 @@ class DbCommand
         elseif($method=='queryAll')
             $r=$sth->fetchAll();
         $this->reset();
-        return !empty($r) ? $r : die('Execute SQL Error : '.$sth->errorInfo()[2]);
+        return !isset($sth->errorInfo()[2]) ? ($r ? $r : array()) : die('Execute SQL Error : '.$sth->errorInfo()[2]);
 
     }
 

@@ -24,7 +24,7 @@ return array(
         'connString'=>'mysql:host=localhost;dbname=sep',
         'username'=>'root',
         'password'=>'123456',
-        'prefix'=>'bbs_',
+        'prefix'=>'',
         'charset'=>'utf8',
     ),
 

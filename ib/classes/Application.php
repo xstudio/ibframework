@@ -28,7 +28,7 @@ class Application
             {
                 $this->$key=$value;
                 if($key=='db_config')   //set application db 
-                    $this->db=new DbConnection();
+                    $this->db=new DbConnection($value);
                 elseif($key=='import')  //import file or directory
                     IB::import($value);
             }

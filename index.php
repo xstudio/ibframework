@@ -14,4 +14,4 @@ $config=dirname(__FILE__).'/config.php';
 
 require_once($ib);
 IB::createApplication($config)->run();
-
+//var_dump(IB::app());
