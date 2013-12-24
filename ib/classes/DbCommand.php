@@ -231,7 +231,13 @@ class DbCommand
     public function execute($bind=array())
     {
         if(empty($bind))
+        {
             $result=$this->_conn->exec($this->_sql);
+            if($this->_conn->errorCode()!='00000')
+            {
+                throw new Exception();
+            }
+        }
         else
         {
             $sth=$this->_conn->prepare($this->_sql);
@@ -247,7 +253,7 @@ class DbCommand
             $result=$sth->execute();
         }
         $this->reset();
-        return  $result ? $result : die('Execute SQL Error : '.$sth->errorInfo()[2]);
+        return $result;
     }    
     /**
      * execute delete sql

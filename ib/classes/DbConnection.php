@@ -49,15 +49,14 @@ class DbConnection
     {
         return $this->_conn;
     }
-    private function getCommand()
+    public function getCommand()
     {
         return $this->_cmd;
     }
-    private function getTransaction()
+    public function getTransaction()
     {
         return $this->_transaction;
     }
-
     /**
      * Command instance
      */
@@ -75,7 +74,7 @@ class DbConnection
     }
 
     /**
-     * Transaction instance
+     * Transaction instance begin transaction turning off autocommit 
      */
     public function beginTransaction()
     {

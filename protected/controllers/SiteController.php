@@ -72,4 +72,22 @@ class SiteController extends Controller
         var_dump(Chat::model()->deleteByPk(3));
         var_dump(Chat::model()->delete('id_chat>:id', array(':id'=>8)));
     }
+    public function transaction()
+    {
+        $db=IB::app()->db;
+        $transaction=$db->beginTransaction();
+        try
+        {
+            $db->createCommand('delete from chat where id_chat=17')->execute();
+            $db->createCommand('delete b from chats where idt=4a')->execute();
+            $transaction->commit();
+            $transaction->rollback();
+        }
+        catch(Exception $e)
+        {
+            //var_dump($e);
+            echo 'aaaa';
+            $transaction->rollback();
+        }
+    }
 }
