@@ -4,8 +4,9 @@
  * Web site application base class 
  *
  * default index file will create this object for running
- * @variable string $title
+ * @variable string title
  * @variable string basePath
+ * @variable string publicPath
  * @variable string defaultController
  * @variable array db_config
  * @variable array param
