@@ -10,7 +10,9 @@
 //set include path
 $include_path=get_include_path();                         
 //framework class path
-$include_path.=PATH_SEPARATOR.dirname(__FILE__)."/classes/" ;    
+$include_path.=PATH_SEPARATOR.dirname(__FILE__)."/web/" ;    
+$include_path.=PATH_SEPARATOR.dirname(__FILE__)."/db/" ;   
+$include_path.=PATH_SEPARATOR.dirname(__FILE__)."/caching/" ;     
 $include_path.=PATH_SEPARATOR.dirname($config)."/protected/models/" ; 
 $include_path.=PATH_SEPARATOR.dirname($config)."/protected/controllers/" ;  
 $include_path.=PATH_SEPARATOR.dirname($config)."/protected/views/" ;    
