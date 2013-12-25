@@ -90,4 +90,28 @@ class SiteController extends Controller
             $transaction->rollback();
         }
     }
+    public function test()
+    {
+        try
+        {
+            throw new AppException('Test error');
+        }
+        catch(AppException $e)
+        {
+            //print_r($e->getMessage());
+        }
+    }
+    public function log()
+    {
+        $this->test();
+        /*try
+        {
+            throw new AppException('sfesfes');
+        }
+        catch(AppException $e)
+        {
+            var_dump($e->getMessage());
+        }*/
+        //IB::log('Undefined Action log');
+    }
 }

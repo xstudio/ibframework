@@ -80,4 +80,26 @@ class IB
         else if(file_exists($file=dirname($config).'/protected/'.$ph_path.'/'.ucfirst($ph[count($ph)-1]).'.php')) //file
             include($file);
     }
+    /**
+     * record runtime log
+     * @param $msg log message
+     */
+    public static function log($msg='')
+    {
+        $traces=debug_backtrace();
+        $tmp_msg='';
+        for($i=0; $i<3; $i++)
+        {
+            if(isset($traces[$i]['file'], $traces[$i]['line']))
+                $tmp_msg.="\nin ".$traces[$i]['file'].' (Line:'.$traces[$i]['line'].")";
+        }
+        file_put_contents(IB::app()->basePath.'/runtime/application.log', "\n".date('Y/m/d H:i:s', time()).' '.$msg.$tmp_msg, FILE_APPEND);
+        if(DEBUG) 
+        {
+            echo '<meta charset="utf-8" />';
+            echo '<div style="padding:5px; margin:10px; background-color:#efefef; ">';
+            echo '<pre>'.$msg.$tmp_msg.'</pre>';
+            echo '</div>';
+        }
+    }
 }
