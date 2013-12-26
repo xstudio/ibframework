@@ -49,7 +49,7 @@ class SiteController extends Controller
     {
         echo '<pre>';
         $chat=new Chat();
-        //print_r($chat->findAll('id_chat>:id', array(':id'=>3)));
+        //print_r($chat->findAll('id_chats>:id', array(':id'=>3)));
         //print_r(Chat::model()->findAll('id_chat>:id', array(':id'=>3)));
         //print_r(Chat::model()->findByPk(4));
         //print_r(Chat::model()->findAll('id_chat>:id', array(':id'=>0)));
@@ -69,8 +69,9 @@ class SiteController extends Controller
         //$chat->update();
         //var_dump($chat->updateAll(array('chat_message'=>'sb', 'chat_created'=>time()), 'id_chat in(1, 2)'));
         //
-        var_dump(Chat::model()->deleteByPk(3));
-        var_dump(Chat::model()->delete('id_chat>:id', array(':id'=>8)));
+        //var_dump(Chat::model()->deleteByPk('a'));
+        //var_dump(Chat::model()->delete('id_chats>:id', array(':id'=>8)));
+        //
     }
     public function transaction()
     {
@@ -78,32 +79,18 @@ class SiteController extends Controller
         $transaction=$db->beginTransaction();
         try
         {
+            //throw new AppException('sssssssss');
             $db->createCommand('delete from chat where id_chat=17')->execute();
-            $db->createCommand('delete b from chats where idt=4a')->execute();
+            $db->createCommand('delete from chat where id_chat=4')->execute();
             $transaction->commit();
-            $transaction->rollback();
         }
         catch(Exception $e)
         {
-            //var_dump($e);
-            echo 'aaaa';
             $transaction->rollback();
-        }
-    }
-    public function test()
-    {
-        try
-        {
-            throw new AppException('Test error');
-        }
-        catch(AppException $e)
-        {
-            //print_r($e->getMessage());
         }
     }
     public function log()
     {
-        $this->test();
         /*try
         {
             throw new AppException('sfesfes');

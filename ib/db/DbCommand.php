@@ -198,28 +198,40 @@ class DbCommand
             $mode=PDO::FETCH_OBJ;
         else
             $mode=PDO::FETCH_ASSOC;
-        $sth=$this->_conn->prepare(trim($this->_sql));
-        $sth->setFetchMode($mode);
-        if(!empty($this->_bindArr))
+
+        try
         {
-            foreach($this->_bindArr as $param=>$value)
+            $sth=$this->_conn->prepare(trim($this->_sql));
+            $sth->setFetchMode($mode);
+            if(!empty($this->_bindArr))
             {
-                $tmp_value=&$this->_bindArr[$param];
-                //$tmp_value must be reference variable
-                $sth->bindParam($param, $tmp_value, PDO::PARAM_STR);
+                foreach($this->_bindArr as $param=>$value)
+                {
+                    $tmp_value=&$this->_bindArr[$param];
+                    //$tmp_value must be reference variable
+                    $sth->bindParam($param, $tmp_value, PDO::PARAM_STR);
+                }
             }
+            $sth->execute();
+            if($method=='queryRow')
+                $r=$sth->fetch();
+            elseif($method=='queryColumn')
+                $r=$sth->fetchColumn();
+            elseif($method=='queryScalar')
+                $r=$sth->fetch()[0];
+            elseif($method=='queryAll')
+                $r=$sth->fetchAll();
+            $this->reset();
+            if(is_null($sth->errorInfo()[2]))
+                return $r;
+            else
+                throw new AppException('Execute SQL Error :'.$sth->errorInfo()[2]);
         }
-        $sth->execute();
-        if($method=='queryRow')
-            $r=$sth->fetch();
-        elseif($method=='queryColumn')
-            $r=$sth->fetchColumn();
-        elseif($method=='queryScalar')
-            $r=$sth->fetch()[0];
-        elseif($method=='queryAll')
-            $r=$sth->fetchAll();
-        $this->reset();
-        return !isset($sth->errorInfo()[2]) ? ($r ? $r : array()) : die('Execute SQL Error : '.$sth->errorInfo()[2]);
+        catch(AppException $e)
+        {
+            $this->reset();
+            throw new Exception($e->getMessage());
+        }
 
     }
 
@@ -230,30 +242,39 @@ class DbCommand
      */
     public function execute($bind=array())
     {
-        if(empty($bind))
+        try
         {
-            $result=$this->_conn->exec($this->_sql);
-            if($this->_conn->errorCode()!='00000')
+            if(empty($bind))
             {
-                throw new Exception();
+                $result=$this->_conn->exec($this->_sql);
+                if($this->_conn->errorCode()!='00000')
+                    throw new AppException('Execute SQL Error :'.$this->_conn->errorInfo()[2]);
             }
-        }
-        else
-        {
-            $sth=$this->_conn->prepare($this->_sql);
-            if(!empty($bind))
+            else
             {
-                foreach($bind as $param=>$value)
+                $sth=$this->_conn->prepare($this->_sql);
+                if(!empty($bind))
                 {
-                    $tmp_value=&$bind[$param];
-                    //$tmp_value must be reference variable
-                    $sth->bindParam($param, $tmp_value, PDO::PARAM_STR);
+                    foreach($bind as $param=>$value)
+                    {
+                        $tmp_value=&$bind[$param];
+                        //$tmp_value must be reference variable
+                        $sth->bindParam($param, $tmp_value, PDO::PARAM_STR);
+                    }
                 }
+                $result=$sth->execute();
+                if($sth->errorCode()!='00000')
+                    throw new AppException('Execute SQL Error :'.$sth->errorInfo()[2]);
+                
             }
-            $result=$sth->execute();
+            $this->reset();
+            return $result;
         }
-        $this->reset();
-        return $result;
+        catch(AppException $e)
+        {
+            $this->reset();
+            throw new Exception($e->getMessage());
+        }
     }    
     /**
      * execute delete sql

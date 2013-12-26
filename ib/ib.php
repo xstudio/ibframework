@@ -25,6 +25,25 @@ function autoLoad($class_name)
 }
 spl_autoload_register('autoLoad');
 
+//catch notice and warning info 
+set_error_handler(function($errno, $errstr, $errfile, $errline) {
+    if($errno==1)
+        $error_level='Error: ';
+    elseif($errno==8)
+        $error_level='Notice: ';
+    elseif($errno==2)
+        $error_level='Warning: ';
+    else
+        $error_level='Unknown error type: ';
+    IB::log($error_level.$errstr.' in '.$errfile.' on line '.$errline, false);
+});
+
+//catch fatal error
+register_shutdown_function(function() {
+    if ($error = error_get_last()) 
+        IB::log('Fatal error: '.$error['message'].' in '.$error['file'].' on line '.$error['line'], false);
+});
+
 class IB
 {   
     /**
@@ -43,12 +62,17 @@ class IB
      */
     public static function createApplication($config)
     {
-        if(file_exists($config))
+        try
         {
-            $config_arr=include($config);
-            return self::$_app=new Application($config_arr);
+            if(file_exists($config))
+            {
+                $config_arr=include($config);
+                return self::$_app=new Application($config_arr);
+            }
+            else
+                throw new AppException("Can't load config file, please check exists and readable.");
         }
-        return null;
+        catch(AppException $e){}
     }
     /**
      * import file or directory
@@ -84,22 +108,35 @@ class IB
      * record runtime log
      * @param $msg log message
      */
-    public static function log($msg='')
+    public static function log($msg='', $is_trace=true)
     {
-        $traces=debug_backtrace();
         $tmp_msg='';
-        for($i=0; $i<3; $i++)
+        if($is_trace)
         {
-            if(isset($traces[$i]['file'], $traces[$i]['line']))
-                $tmp_msg.="\nin ".$traces[$i]['file'].' (Line:'.$traces[$i]['line'].")";
+            $traces=debug_backtrace();
+            for($i=0; $i<3; $i++)
+            {
+                if(isset($traces[$i]['file'], $traces[$i]['line']))
+                    $tmp_msg.="\nin ".$traces[$i]['file'].' (Line:'.$traces[$i]['line'].")";
+            }
         }
-        file_put_contents(IB::app()->basePath.'/runtime/application.log', "\n".date('Y/m/d H:i:s', time()).' '.$msg.$tmp_msg, FILE_APPEND);
+        if(isset(self::app()->basePath))
+            $path=self::app()->basePath;
+        else
+        {
+            global $config;
+            $path=dirname($config).'/protected';
+        }
+
+        file_put_contents($path.'/runtime/application.log', date('Y/m/d H:i:s', time()).' '.$msg.$tmp_msg."\n", FILE_APPEND);
         if(DEBUG) 
-        {
-            echo '<meta charset="utf-8" />';
-            echo '<div style="padding:5px; margin:10px; background-color:#efefef; ">';
-            echo '<pre>'.$msg.$tmp_msg.'</pre>';
-            echo '</div>';
-        }
+            self::printError($msg.$tmp_msg);
+    }
+    public static function printError($msg)
+    {
+        echo '<meta charset="utf-8">';
+        echo '<div style="padding:5px; margin:10px; background-color:#efefef; ">';
+        echo '<pre style="white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word;">'.$msg.'</pre>';
+        echo '</div>';
     }
 }

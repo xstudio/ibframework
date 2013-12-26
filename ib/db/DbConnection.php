@@ -27,7 +27,7 @@ class DbConnection
             }
             catch(PDOException $e)
             {
-                die('Connection failed : '.$e->getMessage());
+                IB::log('Db Connection failed : '.iconv('gb2312', 'utf-8', $e->getMessage()), false);
             }
         }
     }  
