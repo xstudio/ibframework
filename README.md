@@ -11,11 +11,9 @@ PHP IB Framework
 
       MVC模式
       
-      DAO/ActiveRecord数据处理
+      DAO/ActiveRecord DB处理、事务处理
       
-      事务处理
-      
-      异常处理
+      异常处理、日志记录
       
       URL处理
       
