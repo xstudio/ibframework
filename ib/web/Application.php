@@ -40,15 +40,15 @@ class Application
      */
     public function run()
     {
-        $c=(isset($_GET['c']) && !empty($_GET['c'])) ? $_GET['c']:$this->defaultController;
-        $controllerFile=ucfirst(strtolower($c)).'Controller';
+        UrlManager::parseUrl();
+        $controllerFile=ucfirst(strtolower($_GET['c'])).'Controller';
         if(file_exists($this->basePath.'controllers/'.$controllerFile.'.php'))
         {
             $controller=new $controllerFile;
             $controller->run();
         }
         else
-            echo 'Error Controller';
+            IB::printError('Unknown Controller: '.$_GET['c']);
     }
     /**
      * get db instance

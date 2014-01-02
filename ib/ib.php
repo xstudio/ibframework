@@ -138,5 +138,6 @@ class IB
         echo '<div style="padding:5px; margin:10px; background-color:#efefef; ">';
         echo '<pre style="white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word;">'.$msg.'</pre>';
         echo '</div>';
+        return;
     }
 }

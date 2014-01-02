@@ -14,41 +14,51 @@ class Controller
      */
     public function run()
     {
-        //default action
-        $action='index';
-        if(isset($_GET['a']) && !empty($_GET['a']))
-            $action=$_GET['a'];
-        if(method_exists($this, $action))
-            $this->$action();
+        if(method_exists($this, $_GET['a']))
+            $this->$_GET['a']();
         else
-            echo 'Error Action:'.$action;
+            IB::printError('Undefined Action: '.$_GET['a']);
     
     }
 
     /**
-     * URL redirect
+     * URL redirect relate urlmanager configuration
+     * @param string $url controller/action or action
+     * @param array $params param=>value
      */
-    public function redirect($path, $args='')
+    public function redirect($url, $params=array())
     {
-        /*$path=trim($path, "/");
-        
-        if($args!="")
-			$args="&".$args;
-        if(strstr($path, "/"))
+        $urls='';
+        if(!IB::app()->urlManager['urlRewrite'])
         {
-            $pathArr=explode('/', $path);
-            $url='?c='.$pathArr[0].'&a='.$pathArr[1].$args;
+            if(strpos($url, '/')!==false)
+                $url=explode('/', $url);
+            if(is_array($url))
+                $urls='?c='.$url[0].'&a='.$url[1];
+            else
+                $urls='?c='.$_GET['c'].'&a='.$url;
+            if(!empty($params))
+                $urls.='&'.http_build_query($params);
         }
         else
         {
-            $c=isset($_GET['c'])?$_GET['c']:DEFAULT_C;
-            $url='?c='.$c."&a=".$path.$args;
+            if(strpos($url, '/')===false)
+                $urls=$_GET['c'].'/'.$url;
+            if(!empty($params))
+                foreach($params as $key=>$value)
+                    $urls.='/'.$key.'/'.$value;
+            
         }
-
-        $url=$GLOBALS["app"].$url;
-        header("Location:$url");
-        return;*/
-
+        if(IB::app()->urlManager['showScriptName'])
+        {
+            if(IB::app()->urlManager['urlRewrite'])
+                $urls=$_SERVER['SCRIPT_NAME'].'/'.$urls;
+            else
+                $urls=$_SERVER['SCRIPT_NAME'].$urls;
+        }
+        else
+            $urls=dirname($_SERVER['SCRIPT_NAME']).'/'.$urls;
+        header('Location:'.$urls);
     }
 
     /**
@@ -64,5 +74,7 @@ class Controller
                 extract($assign, EXTR_PREFIX_SAME, 'assign');
             include($controller.'/'.$tpl.'.php');
         }
+        else
+            IB::printError("Unknown view file: ".$tpl);
     }
 }

@@ -101,4 +101,9 @@ class SiteController extends Controller
         }*/
         //IB::log('Undefined Action log');
     }
+    public function url()
+    {
+        //var_dump($_SERVER);
+       $this->redirect('log', array('id'=>5, 'max'=>15));
+    }
 }
