@@ -127,7 +127,8 @@ class IB
             global $config;
             $path=dirname($config).'/protected';
         }
-
+        
+        //write into file
         file_put_contents($path.'/runtime/application.log', date('Y/m/d H:i:s', time()).' '.$msg.$tmp_msg."\n", FILE_APPEND);
         if(DEBUG) 
             self::printError($msg.$tmp_msg);

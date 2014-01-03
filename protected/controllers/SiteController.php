@@ -99,7 +99,7 @@ class SiteController extends Controller
         {
             var_dump($e->getMessage());
         }*/
-        //IB::log('Undefined Action log');
+        IB::log('Undefined Action log');
     }
     public function url()
     {

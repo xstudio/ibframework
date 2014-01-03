@@ -31,7 +31,7 @@ return array(
     'db_config'=>array(
         'connString'=>'mysql:host=localhost;dbname=sep',
         'username'=>'root',
-        'password'=>'123456',
+        'password'=>'123',
         'prefix'=>'',
         'charset'=>'utf8',
     ),
