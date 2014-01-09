@@ -32,6 +32,8 @@ class Application
                     $this->db=new DbConnection($value);
                 elseif($key=='import')  //import file or directory
                     IB::import($value);
+                elseif($key=='memcache_config') //set memcache
+                    $this->memcache=new IMemcache($value);
             }
         }
     }

@@ -22,6 +22,7 @@ class SiteController extends Controller
         //var_dump();
         //
         $db=IB::app()->db;
+	var_dump($db);
         echo '<pre>';
         //print_r(IB::app()->db->createCommand()->select('*')->from('chat')->where('chat_to_user=:user and id_chat<:id', array( ':id'=>3, ':user'=>'822@11.com'))->order('id_chat desc')->limit('1')->queryAll());
         //print_r($db->createCommand('select * from chat')->queryAll());
@@ -105,5 +106,10 @@ class SiteController extends Controller
     {
         //var_dump($_SERVER);
        $this->redirect('log', array('id'=>5, 'max'=>15));
+    }
+
+    public function memcache()
+    {
+        var_dump(IB::app()->memcache);
     }
 }

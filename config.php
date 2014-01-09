@@ -35,7 +35,13 @@ return array(
         'prefix'=>'',
         'charset'=>'utf8',
     ),
-
+    
+    //memcache server
+    'memcache_config'=>array(
+        array('localhost', 11211),
+        /*array('www.cache1.com', 11211),*/
+        /*array('www.cache2.com', 11211),*/
+    ),
     //custom global variable
     'param'=>array(
         'defaultWebSite'=>'yueqian.sinaapp.com',
