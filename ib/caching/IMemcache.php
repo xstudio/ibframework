@@ -1,7 +1,7 @@
 <?php
 
 /**
- * memory cache set/get/delte
+ * memory cache set/get/delete
  * @version 1.0
  * @date 14/01/08
  * @author yueqian.sinaapp.com
@@ -37,26 +37,18 @@ class IMemcach
      * @param string $key
      * @param mixed $value
      * @param int $expire if not set, it will be 0, express cache never expired
+     * @param boolean $is_compress is compress cache
+     * @return boolean
      */
-    public function set($key, $value, $expire=0)
+    public function set($key, $value, $expire=0, $is_compress=true)
     {
         $key=md5($key);
         $expire=$expire ? $expire : 0;
-        //MEMCACHE_COMPRESSED zlib compress cache
-        $this->_cache->set($key, $value, MEMCACHE_COMPRESSED, $expire);
-    }
-    /**
-     * replace cache
-     * @param string $key
-     * @param mixed $value
-     * @param int $expire if not set, it will be 0, express cache never expired
-     */
-    public function replace($key, $value, $expire=0)
-    {
-        $key=md5($key);
-        $expire=$expire ? $expire : 0;
-        //MEMCACHE_COMPRESSED zlib compress cache
-        $this->_cache->set($key, $value, MEMCACHE_COMPRESSED, $expire);
+        if($is_compress)
+            return $this->_cache->set($key, $value, MEMCACHE_COMPRESSED, $expire);
+        else
+            return $this->_cache->set($key, $value, false, $expire);
+
     }
     /**
      * get cache
@@ -64,23 +56,39 @@ class IMemcach
      */
     public function get($key)
     {
-        $key=md5($key);
-        return $this->_cache->get($key);
+        return $this->_cache->get(md5($key));
     }
     /**
      * delete cache
+     * @return boolean
      */
     public function delete($key)
     {
-        $key=md5($key);
-        $this->_cache->delete($key);
+        return $this->_cache->delete(md5($key));
     }
     /**
      * delete all cache
+     * @return boolean
      */
     public function flush()
     {
-        $this->_cache->flush();
+        return $this->_cache->flush();
+    }
+    /**
+     * decrement cache value
+     * @return integer decremented value
+     */
+    public function decrement($key, $num=0)
+    {
+        return $this->_cache->decrement(md5($key), $num);
+    }
+    /**
+     * increment cache value
+     * @return integer incremented value
+     */
+    public function increment($key, $num=0)
+    {
+        return $this->_cache->increment(md5($key), $num);
     }
 }
  
