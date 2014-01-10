@@ -142,4 +142,21 @@ class SiteController extends Controller
         echo $rs->get('views');
          */
     }
+    public function timer()
+    {
+        $timer=new Timer();
+        $timer->start();
+        sleep(2);
+        $timer->stop();
+        echo $timer->fetch();
+
+        $timer->start();
+        sleep(2);
+        $timer->pause();
+        sleep(2);
+        $timer->unPause();
+        sleep(1);
+        $timer->stop();
+        echo $timer->fetch();
+    }
 }
