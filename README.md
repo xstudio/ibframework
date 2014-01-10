@@ -6,7 +6,10 @@ PHP IB Framework
       ┆         http://yueqian.sinaapp.com            ┆
       ┆       QQ：1219161638  YY：292558074           ┆
       ╚------------------------------------------------╝
-      
+
+注意：在SiteController里已有部分已开发完成的功能示例。      
+
+
 预计框架产出功能
 
       MVC模式
@@ -15,11 +18,11 @@ PHP IB Framework
       
       异常处理、日志记录
       
-      URL处理
+      URL处理（静态化）
       
-      数据校验
+      数据校验（合法性）
       
-      Memcache/Redis缓存
+      Memcache/Redis（内存缓存）
       
       文件上传处理
       
@@ -33,4 +36,4 @@ PHP IB Framework
       
       框架快速部署工具
       
-      演示项目及开发手册
+      示例项目及开发手册
