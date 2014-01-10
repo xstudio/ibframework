@@ -15,7 +15,7 @@ class SiteController extends Controller
         $this->render('index');
     }
 
-    public function login()
+    public function db()
     {
         //var_dump(IB::app()->db->createCommand()->getCompleteTable('adw'));
         //$this->render('login');
@@ -108,8 +108,38 @@ class SiteController extends Controller
        $this->redirect('log', array('id'=>5, 'max'=>15));
     }
 
-    public function memcache()
+    public function cache()
     {
-        var_dump(IB::app()->memcache);
+        //var_dump(IB::app()->memcache);
+        //var_dump(IB::app()->redis);
+
+        /*$mc=IB::app()->memcache;
+        $mc->set('test', 'this is a test', 10);
+        echo $mc->get('test');
+        $mc->delete('test');
+        echo $mc->get('test');
+        $mc->set('views', 5, 10);
+        $mc->increment('views', 2);
+        $mc->decrement('views', 3);
+        echo $mc->get('views');
+        $mc->flush();
+        echo $mc->get('views');
+        $mc->getCache()->set($mc->getEncryKey('a'), 'aaaa', false, 10);
+        echo '|-'.$mc->getCache()->get($mc->getEncryKey('a'));
+        echo $mc->get('a');
+        */
+        /*$rs=IB::app()->redis;
+        $rs->setex('test', 2, 'this is a test');
+        echo $rs->get('test');
+        sleep(3);
+        echo $rs->get('test');
+        $rs->setex('views', 10, 5);
+        $rs->incrby('views', 2);
+        $rs->decrby('views', 3);
+        echo $rs->get('views');
+        //$rs->delete('views');
+        //$rs->flushAll();
+        echo $rs->get('views');
+         */
     }
 }

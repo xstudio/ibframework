@@ -1,18 +1,14 @@
 <?php
 
 /**
- * memory cache set/get/delete
+ * memory cache 
+ * set/get/delete/increment/decrement
  * @version 1.0
  * @date 14/01/08
  * @author yueqian.sinaapp.com
  */
-class IMemcach
+class IMemcache extends Cache
 {
-    /**
-     * memcache
-     */
-    private $_cache;
-
     public function __construct($mc_config=array())
     {
         $this->_cache=new Memcache();
@@ -25,13 +21,7 @@ class IMemcach
         if(empty($status))
             IB::log("Memcache connected error, please check it's config", false);
     }
-    /**
-     * get
-     */
-    public function getCache()
-    {
-        return $this->_cache;
-    }
+
     /**
      * add cache
      * @param string $key
@@ -51,22 +41,6 @@ class IMemcach
 
     }
     /**
-     * get cache
-     * @param string $key
-     */
-    public function get($key)
-    {
-        return $this->_cache->get(md5($key));
-    }
-    /**
-     * delete cache
-     * @return boolean
-     */
-    public function delete($key)
-    {
-        return $this->_cache->delete(md5($key));
-    }
-    /**
      * delete all cache
      * @return boolean
      */
@@ -80,7 +54,7 @@ class IMemcach
      */
     public function decrement($key, $num=0)
     {
-        return $this->_cache->decrement(md5($key), $num);
+        return $this->_cache->decrement($this->getEncryKey($key), $num);
     }
     /**
      * increment cache value
@@ -88,7 +62,7 @@ class IMemcach
      */
     public function increment($key, $num=0)
     {
-        return $this->_cache->increment(md5($key), $num);
+        return $this->_cache->increment($this->getEncryKey($key), $num);
     }
 }
  

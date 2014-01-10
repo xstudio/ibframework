@@ -1,3 +1,45 @@
 2014/01/08 16:59:06 Fatal error: Can't use method return value in write context in /var/www/ibframework/ib/caching/IMemcache.php on line 24
 2014/01/08 16:59:28 Fatal error: syntax error, unexpected '=', expecting ')' in /var/www/ibframework/ib/caching/IMemcache.php on line 24
 2014/01/09 10:54:05 Fatal error: Class 'IMemcache' not found in /var/www/ibframework/ib/web/Application.php on line 36
+2014/01/10 12:09:03 Fatal error: Class 'IMemcache' not found in /var/www/ibframework/ib/web/Application.php on line 38
+2014/01/10 12:09:46 Fatal error: Uncaught exception 'RedisException' with message 'Can't connect to localhost:6379' in /var/www/ibframework/ib/caching/IRedis.php:16
+Stack trace:
+#0 /var/www/ibframework/ib/caching/IRedis.php(16): Redis->connect('localhost', 6379)
+#1 /var/www/ibframework/ib/web/Application.php(40): IRedis->__construct(Array)
+#2 /var/www/ibframework/ib/ib.php(70): Application->__construct(Array)
+#3 /var/www/ibframework/index.php(19): IB::createApplication('/var/www/ibfram...')
+#4 {main}
+  thrown in /var/www/ibframework/ib/caching/IRedis.php on line 16
+2014/01/10 12:12:36 Warning: include(Readawdwadawdawdawdis.php): failed to open stream: No such file or directory in /var/www/ibframework/ib/ib.php on line 24
+2014/01/10 12:12:36 Warning: include(): Failed opening 'Readawdwadawdawdawdis.php' for inclusion (include_path='.:/usr/share/php:/usr/share/pear:/var/www/ibframework/ib/web/:/var/www/ibframework/ib/db/:/var/www/ibframework/ib/caching/:/var/www/ibframework/protected/models/:/var/www/ibframework/protected/controllers/:/var/www/ibframework/protected/views/:/var/www/ibframework/protected/extension/') in /var/www/ibframework/ib/ib.php on line 24
+2014/01/10 12:12:36 Fatal error: Class 'Readawdwadawdawdawdis' not found in /var/www/ibframework/ib/caching/IRedis.php on line 13
+2014/01/10 12:12:53 Redis connected error: Can't connect to localhost:6379
+2014/01/10 12:13:08 Redis connected error: Can't connect to localhost:6379
+2014/01/10 14:54:12 Fatal error: Call to a member function get() on a non-object in /var/www/ibframework/ib/caching/Cache.php on line 37
+2014/01/10 14:56:03 Fatal error: Call to a member function get() on a non-object in /var/www/ibframework/ib/caching/Cache.php on line 37
+2014/01/10 14:56:04 Fatal error: Call to a member function get() on a non-object in /var/www/ibframework/ib/caching/Cache.php on line 37
+2014/01/10 14:56:04 Fatal error: Call to a member function get() on a non-object in /var/www/ibframework/ib/caching/Cache.php on line 37
+2014/01/10 14:56:04 Fatal error: Call to a member function get() on a non-object in /var/www/ibframework/ib/caching/Cache.php on line 37
+2014/01/10 14:56:04 Fatal error: Call to a member function get() on a non-object in /var/www/ibframework/ib/caching/Cache.php on line 37
+2014/01/10 14:57:27 Fatal error: Call to undefined method IMemcache::delete() in /var/www/ibframework/protected/controllers/SiteController.php on line 119
+2014/01/10 14:58:41 Fatal error: Call to undefined method IMemcache::getEncry() in /var/www/ibframework/ib/caching/IMemcache.php on line 30
+2014/01/10 15:04:22 Fatal error: syntax error, unexpected $end, expecting T_FUNCTION in /var/www/ibframework/ib/caching/Cache.php on line 41
+2014/01/10 15:04:23 Fatal error: syntax error, unexpected $end, expecting T_FUNCTION in /var/www/ibframework/ib/caching/Cache.php on line 41
+2014/01/10 15:04:23 Fatal error: syntax error, unexpected $end, expecting T_FUNCTION in /var/www/ibframework/ib/caching/Cache.php on line 41
+2014/01/10 15:04:23 Fatal error: syntax error, unexpected $end, expecting T_FUNCTION in /var/www/ibframework/ib/caching/Cache.php on line 41
+2014/01/10 15:04:23 Fatal error: syntax error, unexpected $end, expecting T_FUNCTION in /var/www/ibframework/ib/caching/Cache.php on line 41
+2014/01/10 15:04:23 Fatal error: syntax error, unexpected $end, expecting T_FUNCTION in /var/www/ibframework/ib/caching/Cache.php on line 41
+2014/01/10 15:06:23 Warning: MemcachePool::set(): The lowest two bytes of the flags array is reserved for pecl/memcache internal use in /var/www/ibframework/protected/controllers/SiteController.php on line 127
+2014/01/10 15:09:18 Warning: MemcachePool::set() expects parameter 4 to be long, string given in /var/www/ibframework/protected/controllers/SiteController.php on line 127
+2014/01/10 15:09:50 Fatal error: Call to undefined method IMemcache::getEncry() in /var/www/ibframework/protected/controllers/SiteController.php on line 127
+2014/01/10 15:09:50 Fatal error: Call to undefined method IMemcache::getEncry() in /var/www/ibframework/protected/controllers/SiteController.php on line 127
+2014/01/10 15:09:51 Fatal error: Call to undefined method IMemcache::getEncry() in /var/www/ibframework/protected/controllers/SiteController.php on line 127
+2014/01/10 15:09:51 Fatal error: Call to undefined method IMemcache::getEncry() in /var/www/ibframework/protected/controllers/SiteController.php on line 127
+2014/01/10 15:11:35 Warning: Redis::setex() expects parameter 2 to be long, string given in /var/www/ibframework/ib/caching/IRedis.php on line 37
+2014/01/10 15:11:35 Warning: Redis::setex() expects parameter 2 to be long, string given in /var/www/ibframework/ib/caching/IRedis.php on line 37
+2014/01/10 15:11:35 Warning: Redis::setex() expects parameter 2 to be long, string given in /var/www/ibframework/ib/caching/IRedis.php on line 37
+2014/01/10 15:11:36 Warning: Redis::setex() expects parameter 2 to be long, string given in /var/www/ibframework/ib/caching/IRedis.php on line 37
+2014/01/10 15:26:55 Fatal error: Call to undefined method Redis::decrement() in /var/www/ibframework/ib/caching/IRedis.php on line 53
+2014/01/10 15:27:17 Fatal error: Call to undefined method IRedis::flushAll() in /var/www/ibframework/protected/controllers/SiteController.php on line 141
+2014/01/10 15:27:30 Notice: Undefined variable: ts in /var/www/ibframework/protected/controllers/SiteController.php on line 142
+2014/01/10 15:27:30 Fatal error: Call to a member function get() on a non-object in /var/www/ibframework/protected/controllers/SiteController.php on line 142
