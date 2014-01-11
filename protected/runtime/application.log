@@ -43,3 +43,20 @@ Stack trace:
 2014/01/10 15:27:17 Fatal error: Call to undefined method IRedis::flushAll() in /var/www/ibframework/protected/controllers/SiteController.php on line 141
 2014/01/10 15:27:30 Notice: Undefined variable: ts in /var/www/ibframework/protected/controllers/SiteController.php on line 142
 2014/01/10 15:27:30 Fatal error: Call to a member function get() on a non-object in /var/www/ibframework/protected/controllers/SiteController.php on line 142
+2014/01/11 16:06:04 Redis connected error: Can't connect to localhost:6379
+2014/01/11 16:06:04 Warning: Missing argument 1 for Validator::username(), called in /var/www/ibframework/protected/controllers/SiteController.php on line 164 and defined in /var/www/ibframework/ib/web/Validator.php on line 30
+2014/01/11 16:06:04 Warning: preg_match() expects at least 2 parameters, 1 given in /var/www/ibframework/ib/web/Validator.php on line 33
+2014/01/11 16:07:18 Warning: preg_match() expects at least 2 parameters, 1 given in /var/www/ibframework/ib/web/Validator.php on line 33
+2014/01/11 16:07:45 Fatal error: syntax error, unexpected ';' in /var/www/ibframework/ib/web/Validator.php on line 33
+2014/01/11 16:07:55 Warning: preg_match(): Compilation failed: range out of order in character class at offset 5 in /var/www/ibframework/ib/web/Validator.php on line 33
+2014/01/11 16:24:38 Fatal error: syntax error, unexpected '=', expecting ')' in /var/www/ibframework/ib/web/Validator.php on line 33
+2014/01/11 16:26:04 Fatal error: syntax error, unexpected ',', expecting '}' in /var/www/ibframework/ib/web/Validator.php on line 36
+2014/01/11 16:26:05 Fatal error: syntax error, unexpected ',', expecting '}' in /var/www/ibframework/ib/web/Validator.php on line 36
+2014/01/11 16:26:05 Fatal error: syntax error, unexpected ',', expecting '}' in /var/www/ibframework/ib/web/Validator.php on line 36
+2014/01/11 16:26:05 Fatal error: syntax error, unexpected ',', expecting '}' in /var/www/ibframework/ib/web/Validator.php on line 36
+2014/01/11 16:27:43 Fatal error: syntax error, unexpected ',', expecting '}' in /var/www/ibframework/ib/web/Validator.php on line 38
+2014/01/11 16:27:44 Fatal error: syntax error, unexpected ',', expecting '}' in /var/www/ibframework/ib/web/Validator.php on line 38
+2014/01/11 16:27:44 Fatal error: syntax error, unexpected ',', expecting '}' in /var/www/ibframework/ib/web/Validator.php on line 38
+2014/01/11 16:27:44 Fatal error: syntax error, unexpected ',', expecting '}' in /var/www/ibframework/ib/web/Validator.php on line 38
+2014/01/11 16:27:44 Fatal error: syntax error, unexpected ',', expecting '}' in /var/www/ibframework/ib/web/Validator.php on line 38
+2014/01/11 16:27:44 Fatal error: syntax error, unexpected ',', expecting '}' in /var/www/ibframework/ib/web/Validator.php on line 38

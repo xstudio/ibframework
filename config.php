@@ -38,12 +38,12 @@ return array(
     
     //memcache server
     'caching'=>array(
-        'memcache'=>array(
+        /*'memcache'=>array(
             array('localhost', 11211),
-            /*array('www.cache1.com', 11211),*/
-            /*array('www.cache2.com', 11211),*/
-        ),
-        'redis'=>array('localhost', 6379),
+            //array('www.cache1.com', 11211),
+            //array('www.cache2.com', 11211),
+        ),*/
+        //'redis'=>array('localhost', 6379),
     ),
     //custom global variable
     'param'=>array(

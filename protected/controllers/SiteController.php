@@ -159,4 +159,11 @@ class SiteController extends Controller
         $timer->stop();
         echo $timer->fetch();
     }
+    public function validator()
+    {
+        var_dump(Validator::url('http://yueqian.sinaapp.com'));
+        var_dump(Validator::email('hucsecurity@163.com'));
+        var_dump(Validator::username('小笙_'));
+
+    }
 }
