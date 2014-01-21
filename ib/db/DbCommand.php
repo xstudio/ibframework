@@ -324,8 +324,8 @@ class DbCommand
             $bind[':'.$k]=$v;
         }
         $sql='INSERT INTO '.$this->getCompleteTable($table).'('.implode(',', $colums).')VALUES('.implode(',', $val).')';
-        echo $sql;
-        print_r($bind);
+        //echo $sql;
+        //print_r($bind);
         return $this->setSql($sql)->execute($bind);
     }
     
