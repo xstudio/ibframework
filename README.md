@@ -10,8 +10,11 @@ PHP IB Framework
 注意：在SiteController里已有部分已开发完成的功能示例。      
 
 
+
 主站：http://ibframework.sinaapp.com/
+
 开发手册：http://ibframework.sinaapp.com/docs
+
 
 
 预计框架产出功能
