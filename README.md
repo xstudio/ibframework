@@ -15,4 +15,12 @@ PHP IB Framework
 
 开发手册：http://ibframework.sinaapp.com/docs
 
+部署安装
+
+使用ib目录下的ibc.php快速部署。
+
+      cd ib/
+
+      php ibc.php <App-path>
+
 
