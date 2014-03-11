@@ -26,6 +26,7 @@ PHP IB Framework
 即可在/var/www/test目录下生成index.php,protected等文件。通过浏览器访问 http://localhost/test。
 
 部署后的文件目录树
+
       ├── config.php
       ├── ib
       │   ├── caching
