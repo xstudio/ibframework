@@ -3,9 +3,14 @@
 /**
  * cache parent class 
  * set/get/delete/increment/decrement
+ * @filesource
  * @version 1.0
  * @date 14/01/08
  * @author yueqian.sinaapp.com
+ */
+/**
+ * 所有缓存的基类
+ * 
  */
 class Cache
 {

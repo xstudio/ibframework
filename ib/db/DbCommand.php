@@ -3,9 +3,43 @@
 /**
  * execute db command
  * 
+ * @filesource
  * @version 1.0
  * @date 13/12/13
  * @author yueqian.sinaapp.com
+ */
+/**
+ * PDO操作封装类，使用类中提供方法代替sql语句书写
+ *
+ * <code>
+ * <?php
+ * //请先修改配置文件中db链接，调用IB::app()->db->createCommand生成此类对象
+ * IB::app()->db->createCommand()
+ *  ->select('*')
+ *  ->from('chat')
+ *  ->where('chat_to_user=:user and id_chat<:id', array( ':id'=>3, ':user'=>'822@11.com'))
+ *  ->order('id_chat desc')
+ *  ->limit('1')
+ *  ->queryAll();
+ * 
+ * $db=IB::app()->db;
+ * $db->createCommand('select * from chat')->queryAll(); //通过sql语句查询
+ *
+ * //插入
+ * $db->createCommand()->insert('chat', array(
+ *      'chat_to_user'=>'2014', 
+ *      'chat_from_user'=>'2013', 
+ *      'chat_message'=>'up'))
+ *  ); 
+ *
+ *  //更新chat表中id_chat=11的行
+ * $db->createCommand()->update('chat', array(
+ *      'chat_to_user'=>'2014', 
+ *      'chat_from_user'=>'2013'
+ *  ), 'id_chat=:id', array(':id'=>11)); 
+ *
+ * $db->createCommand()->delete('chat', 'id_chat=:id', array(':id'=>15)); //删除id_chat=15
+ * </code>
  */
 class DbCommand
 {

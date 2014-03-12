@@ -3,9 +3,22 @@
 /**
  * Database connection 
  *
+ * @filesource
  * @version 1.0
  * @date 13/12/13
  * @author yueqian.sinaapp.com
+ */
+
+/**
+ * 数据库连接类，调用此连接通过IB::app()->db
+ * 
+ * <code>
+ * <?php
+ * var_dump(IB::app()->db->getConnection()); //调用生成的PDO链接，方便使用PDO的一些操作方法
+ * var_dump(IB::app()->db->createCommand()); //生成一个DbCommand对象
+ * var_dump(IB::app()->db->getLastInsertId()); //获取db的lastinserid
+ * var_dump(IB::app()->db->beginTransaction()); //生成Transaction对象，开启一个事物
+ * </code>
  */
 class DbConnection
 {

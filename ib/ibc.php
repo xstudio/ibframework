@@ -1,20 +1,20 @@
 <?php
 
 /**
- * web application create tool
+ * 脚本部署工具
  * 
  * @usage php ibc.php <app-path>
  * @version 1.0
  * @date 14/3/10
+ * @filesource
  * @author yueqian.sinaapp.com
  */
 
 /**
  * get path a and path b relative path, a->b
  */
-function getRelativePath ($a, $b)
+function getRelativePath ($a='', $b='')
 {
-    echo $a."\n".$b."\n";
     $patha = explode('/', $a);
     $pathb = explode('/', $b);
      
@@ -124,7 +124,7 @@ if(isset($argv[1]))
     create_dir(array($path.'/public', $path.'/public/css', $path.'/public/js', $path.'/public/images'));
 
     //protected
-    create_dir(array($path.'/protected', $path.'/protected/views', $path.'/protected/models', $path.'/protected/controllers'));
+    create_dir(array($path.'/protected', $path.'/protected/views', $path.'/protected/models', $path.'/protected/controllers'), 'extension');
 
     if(copy(dirname(__FILE__).'/cli/SiteController.php', $path.'/protected/controllers/SiteController.php'))
         echo("generage protected/controllers/SiteController.php\n");

@@ -1,12 +1,25 @@
 <?php
 /**
  * data split page
- *
+ * 
+ * @filesource
  * @version 1.0
  * @date 12/08/07
  *
  */
 
+/**
+ * 数据分页类
+ *
+ * <code>
+ * <?php
+ * $count=$db->getCount();  //查询数据库中总条数
+ * $page = new Page(10, $count); //设置分页
+ * $info=$db->getByLimit($page->limitPage()); //根据limit查询其他页
+ * //前段显示分页信息
+ * echo($page->getPageInfo(array(1, 2, 3)));
+ * </code>
+ */
 class Page
 {
     private $pageSize;	//single page count
@@ -15,7 +28,11 @@ class Page
     private $rowCount;	//total record count
     private $uri;       
     private $and;
-
+    
+    /**
+     * @param int $pageSie 每页显示条数
+     * @param int $rowCount 总条数
+     */
     public function __construct($pageSize=10,$rowCount=0,$path='')
     {
         $this->pageSize=$pageSize;
@@ -87,7 +104,17 @@ class Page
         $page=$this->pageSize*($this->pageNow-1);
         return 'limit '.$page.','.$this->pageSize;
     }
-
+    
+    /**
+     * @param array $display 前端显示的详情及链接
+     *
+     *  - 0 首页链接
+     *  - 1 下一页链接
+     *  - 2 所有链接
+     *  - 3 下一页链接
+     *  - 4 尾页链接
+     *  - 5 信息详情 
+     */
     public function getPageInfo($display=array(0,1,2,3,4,5))
     {
         $str[0]=$this->firstPage();

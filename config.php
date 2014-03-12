@@ -29,7 +29,7 @@ return array(
 
     //PDO database config
     'db_config'=>array(
-        'connString'=>'mysql:host=localhost;dbname=sep',
+        'connString'=>'mysql:host=localhost;dbname=test',
         'username'=>'root',
         'password'=>'123',
         'prefix'=>'',

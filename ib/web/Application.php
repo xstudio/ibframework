@@ -13,7 +13,13 @@
  *
  * @version 1.0
  * @date 13/12/13
+ * @filesource
  * @author yueqian.sinaapp.com
+ */
+
+/**
+ * 应用程序基类，会读取配置文件，把数组的下标作为类中属性
+ *
  */
 class Application
 {

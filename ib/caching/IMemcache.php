@@ -3,9 +3,17 @@
 /**
  * memory cache 
  * set/get/delete/increment/decrement
+ *
+ * @filesource
  * @version 1.0
  * @date 14/01/08
  * @author yueqian.sinaapp.com
+ */
+
+/**
+ * memcache缓存类，调用通过IB::app()->memcache， 通过IB::app()->memcache->getCache()即可操作原生memcache
+ * 缓存的key值使用sql语句的md5值，具体的操作同memcache
+ * 
  */
 class IMemcache extends Cache
 {
@@ -27,7 +35,7 @@ class IMemcache extends Cache
      * @param string $key
      * @param mixed $value
      * @param int $expire if not set, it will be 0, express cache never expired
-     * @param boolean $is_compress is compress cache
+     * @param boolean $is_compress is compress cache 是否压缩存储
      * @return boolean
      */
     public function set($key, $value, $expire=0, $is_compress=true)

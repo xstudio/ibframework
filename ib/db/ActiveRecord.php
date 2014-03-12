@@ -3,9 +3,72 @@
 /**
  * Active Record a simple ORM model
  *
+ * @filesource
  * @version 1.0
  * @date 13/12/19
  * @author yueqian.sinaapp.com
+ */
+
+/**
+ * 所有ar对象的基类，子类通过集成可方便对单表进行数据的CRUD操作
+ *
+ * <code>
+ * <?php
+ * class Chat extends ActiveRecord
+ * {
+ *   //如果ar子类需要调用Chat::mode()查询，必须覆写此方法
+ *   public static function model($className=__class__)
+ *   {
+ *       return parent::model($className);
+ *   }
+ *   //如果表名于类名首字母转换为小写后相同，则需要写此方法，{{}}，会自动连接配置文件中设置的表前缀
+ *   //public function tableName()
+ *   //{
+ *       //return '{{chat}}';
+ *   //}
+ *   //如果表中没有设置主键，则需要写此方法指名主键
+ *   //public function primaryKey()
+ *   //{
+ *       //return 'chat_to_user';
+ *   //}
+ * }
+ *  
+ * }
+ * $chat=new Chat(); //实例化聊天类
+ *
+ * $chat->findAll('id_chats>:id', array(':id'=>3)); //查询所有id>3的数据
+ * $chat->find('id_chat>4'); //不绑定数据
+ *
+ * Chat::model()->findAll('id_chat>:id', array(':id'=>3)); //不用实例化即可调用查询
+ * Chat::model()->findByPk(4); //查询主键为4的数据
+ *
+ * print_r($chat->attributes); //输出$chat对象属性，及表中对应字段及当前值
+ *
+ * $chat->findAllByAttributes(
+ *      array('order'=>'id_chat desc', 'limit'=>'2'), 'id_chat>:id', array(':id'=>5)
+ * ); 
+ * $chat->findByAttributes(array('order'=>'id_chat desc'), 'id_chat>:id', array(':id'=>5));
+ *
+ * //通过数组设置属性值
+ * $chat->attributes=array('chat_to_user'=>'aaa', 'chat_from_user'=>'adaw'); 
+ *
+ * $chat->chat_to_user='aafwafaw'; //分别设置
+ * $chat->chat_from_user='afwfa';
+ * $chat->chat_created=time();
+ * $chat->save(); //保存attributes到数据表中
+ *
+ * $chat->attributes=array(
+ *  'chat_to_user'=>'a', 
+ *  'chat_from_user'=>'b',
+ *  'chat_message'=>'saa'
+ * );
+ * $chat->update(); //通过主键值更新表数据
+ *
+ * $chat->updateAll(array('chat_message'=>'sb'), 'id_chat in(1, 2)');
+ *
+ * Chat::model()->deleteByPk('a'); //删除主键为a的
+ * Chat::model()->delete('id_chats>:id', array(':id'=>8)); //删除
+ * </code>
  */
 class ActiveRecord
 {

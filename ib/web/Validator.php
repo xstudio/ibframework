@@ -4,7 +4,18 @@
  * validate data 
  * @version 1.0
  * @date 14/01/11
+ * @filesource
  * @author yueqian.sinaapp.com
+ */
+/**
+ * 数据合法性校验
+ *
+ * <code>
+ * <?php
+ * var_dump(Validator::url('http://yueqian.sinaapp.com'));
+ * var_dump(Validator::email('hucsecurity@163.com'));
+ * var_dump(Validator::username('小笙_'));
+ * </code>
  */
 class Validator
 {
@@ -26,9 +37,9 @@ class Validator
     }
     /**
      * is username format
-     * @param integer $case['min'] $str min length
+     * @param integer $case['min'] $str min length utf8编码 中文单词长度为1
      * @param integer $case['max'] $str max length
-     * @param boolean $case['ch_char'] $str is contains chinese character
+     * @param boolean $case['ch_char'] $str is contains chinese character 是否能包含中文
      */
     public static function username($str, $case=array('min'=>3, 'max'=>20, 'ch_char'=>true))
     {

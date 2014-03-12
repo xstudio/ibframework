@@ -2,10 +2,25 @@
 /**
  * file upload 
  *
+ * @filesource
  * @version 1.0
  * @date 12/08/07
  */
 
+/**
+ * 单文件上传类，使用于表单文件的上传
+ *
+ * <code>
+ * <?php
+ * $up=new FileUpload('./uploads'); //初始化上传
+ *
+ * if($up->upload('pic'))
+ *     //文件名格式year.mounth.day.hour.minute.second.random(100, 999)
+ *     echo($up->getNewFileName()); //上传成功，输出文件名, 长度21位
+ * else
+ *     echo($up->getError()); //否则输出错误信息
+ * </code>
+ */
 class FileUpload
 {
     private $path;      //upload path
@@ -18,7 +33,12 @@ class FileUpload
     private $newFileName;   
     private $errorNum;      //error number
     private $errorMsg='';   //error info  
-
+    
+    /**
+     * @param string $path 上传路径（相对路径）
+     * @param array $type 允许上传的文件类型
+     * @param int $maxSize 文件最大大小（字节）
+     */
     function __construct($path='./upload/',$type=array('jpg','png','gif'),$maxSize=2000000)
     {
         $this->path=$path;
@@ -28,7 +48,7 @@ class FileUpload
 
     /**
      * Upload file 
-     * @param string $name input name
+     * @param string $name input's type==file的name
      * @return boolean file is uploaded
      */
     function upload($name)

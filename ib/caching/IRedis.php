@@ -2,9 +2,14 @@
 
 /**
  * redis cache string data type set/get/delete
+ *
+ * @filesource
  * @version 1.0
  * @date 14/01/08
  * @author yueqian.sinaapp.com
+ */
+/**
+ * redis缓存类，具体操类似memcache
  */
 class IRedis extends Cache
 {

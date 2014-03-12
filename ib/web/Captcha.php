@@ -1,12 +1,30 @@
 <?php
 /**
  * identifying code
- *
+ * 
+ * @filesource
  * @version 1.0
  * @date 12/08/07
  *
  */
 
+/**
+ * 验证码类，生成图片验证码
+ *
+ * <code>
+ * <?php
+ * //@filename vcode.php
+ * //前端显示<img src="vcode.php" onclick="this.src='vcode.php?'+Math.random()"/>
+ * //必须确保服务器session已经开启
+ * session_start();
+ * $cap=new Captcha;
+ * $cap->viewImg(); //显示验证码
+ * //设置session，验证时就可对比 用户输入==$_SESSION['vcode']?
+ * $_SESSION['vcode']=$cap->getCode(); 
+ *
+ * ?>
+ * </code>
+ */
 class Captcha
 {
     private $width;
@@ -15,7 +33,12 @@ class Captcha
     private $img;
     private $pxNum;
     private $valCode;
-    
+    /**
+     * 生成验证码
+     * @param int $width 验证码宽度
+     * @param int $height 验证码高度
+     * @param int $num 生成的字符数
+     */
     public function __construct($width=130,$height=53,$num=4)
     {
         $this->width=$width;

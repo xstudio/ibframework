@@ -4,9 +4,29 @@
  * Parent class of single controller
  * All controller class extends it
  *
+ * @filesource
+ * @version 1.0
  * @date 13/12/13
+ * @author yueqian.sinaapp.com
  */
 
+/**
+ * 所有控制器基类，所有新建控制器必须继承此类
+ *
+ * <code>
+ * <?php
+ * class SiteController extends Controller
+ * {
+ *      //默认执行的action
+ *      public function index()
+ *      {
+ *          $this->render('login'); //加载views/site下的login.php
+ *          $this->redirect('user/index', array('id'=>1001)); //重定向至user/index下
+ *      }
+ * }
+ *
+ * </code>
+ */
 class Controller
 {
     /**
@@ -23,8 +43,9 @@ class Controller
 
     /**
      * URL redirect relate urlmanager configuration
+     * 跳转地址會根据配置文件中UrlManager做相应变化
      * @param string $url controller/action or action
-     * @param array $params param=>value
+     * @param array $params param=>value 通过get提交的参数
      */
     public function redirect($url, $params=array())
     {

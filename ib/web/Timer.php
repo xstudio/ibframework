@@ -4,7 +4,29 @@
  * Timer calculate execute micro time
  * @version 1.0
  * @date 14/1/2
+ * @filesource
  * @author yueqian.sinaapp.com
+ */
+/**
+ * 计时类，用于统计运行时间，时间精确到微秒
+ *
+ * <code>
+ * <?php
+ * $timer=new Timer();
+ * $timer->start(); //启动计时
+ * sleep(2);
+ * $timer->stop(); //停止计时
+ * echo $timer->fetch(); //计时时间
+ * $timer->start();
+ * sleep(2);
+ * $timer->pause(); //暂停计时
+ * sleep(2);
+ * $timer->unPause(); //解除暂停
+ * sleep(1);
+ * $timer->stop();
+ * echo $timer->fetch();
+ *
+ * </code>
  */
 class Timer
 {
@@ -46,7 +68,7 @@ class Timer
     }
     /**
      * get total micro time
-     * @param integer $decimalPlaces fetched decimal places
+     * @param integer $decimalPlaces 保存的小数位数
      */
     public function fetch($decimalPlaces=4)
     {
