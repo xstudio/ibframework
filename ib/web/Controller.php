@@ -83,12 +83,17 @@ class Controller
     }
 
     /**
-     *
+     * 加载显示view文件
+     * 
+     * @param string $tpl 当前控制器目录下的视图文件名 如果只指名文件名前缀，则默认后缀名为.PHP
+     * @param array $assign 分配的变量数组 变量名=>变量值
      */
-    public function render($tpl=null, $assign=array())
+    public function render($tpl='', $assign=array())
     {
         $controller=isset($_GET['c']) ? $_GET['c'] : IB::app()->defaultController;
-        if(file_exists(IB::app()->basePath.'views/'.$controller.'/'.$tpl.'.php'))
+        if(strpos($tpl, '.')===false)
+            $tpl.='.php';
+        if(file_exists(IB::app()->basePath.'views/'.$controller.'/'.$tpl))
         {
             //make str to variable 
             if(!empty($assign))
