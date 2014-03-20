@@ -124,7 +124,7 @@ if(isset($argv[1]))
     create_dir(array($path.'/public', $path.'/public/css', $path.'/public/js', $path.'/public/images'));
 
     //protected
-    create_dir(array($path.'/protected', $path.'/protected/views', $path.'/protected/models', $path.'/protected/controllers'), 'extension');
+    create_dir(array($path.'/protected', $path.'/protected/views', $path.'/protected/models', $path.'/protected/controllers', $path.'/extension'));
 
     if(copy(dirname(__FILE__).'/cli/SiteController.php', $path.'/protected/controllers/SiteController.php'))
         echo("generage protected/controllers/SiteController.php\n");
