@@ -20,8 +20,17 @@ class UrlManager
         if(isset($_SERVER['PATH_INFO']))
         {
             $pathInfo=explode('/', trim($_SERVER['PATH_INFO'], '/'));
-            $_GET['c']=(isset($pathInfo[0]) && !empty($pathInfo[0])) ? $pathInfo[0] : IB::app()->defaultController;
-            $_GET['a']=(isset($pathInfo[1]) && !empty($pathInfo[1])) ? explode('.', $pathInfo[1])[0] : 'index';
+            
+            if(isset($pathInfo[0]) && !empty($pathInfo[0])) 
+                $_GET['c']=$pathInfo[0];
+            else $_GET['c']=IB::app()->defaultController;
+
+            if(isset($pathInfo[1]) && !empty($pathInfo[1])) 
+            {
+                $tmp=explode('.', $pathInfo[1]);
+                $_GET['a']=$tmp[0];
+            }
+            else $_GET['a']='index';
 
             for($i=2; $i<count($pathInfo); $i+=2)
                 $_GET[$pathInfo[$i]]=$pathInfo[$i+1];
@@ -29,7 +38,13 @@ class UrlManager
         else
         {
             $_GET['c']=(isset($_GET['c']) && !empty($_GET['c'])) ? $_GET['c'] : IB::app()->defaultController;
-            $_GET['a']=(isset($_GET['a']) && !empty($_GET['a'])) ? explode('.', $_GET['a'])[0] : 'index';
+
+            if(isset($_GET['a']) && !empty($_GET['a']))
+            {
+                $tmp=explode('.', $_GET['a']);
+                $_GET['a']=$tmp[0];
+            }
+            else $_GET['a']='index';
         }
     }
 }

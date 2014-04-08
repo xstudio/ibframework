@@ -80,6 +80,7 @@ class Controller
         else
             $urls=dirname($_SERVER['SCRIPT_NAME']).'/'.$urls;
         header('Location:'.$urls);
+        exit();
     }
 
     /**
@@ -98,7 +99,7 @@ class Controller
             //make str to variable 
             if(!empty($assign))
                 extract($assign, EXTR_PREFIX_SAME, 'assign');
-            include($controller.'/'.$tpl.'.php');
+            include($controller.'/'.$tpl);
         }
         else
             IB::printError("Unknown view file: ".$tpl);

@@ -146,7 +146,7 @@ function autoLoad($class_name)
 }
 spl_autoload_register('autoLoad');
 
-/*set_error_handler(function($errno, $errstr, $errfile, $errline) {
+set_error_handler(function($errno, $errstr, $errfile, $errline) {
     if($errno==1)
         $error_level='Error: ';
     elseif($errno==8)
@@ -162,8 +162,8 @@ spl_autoload_register('autoLoad');
  * catch fatal error
  * @ignore
  */
-/*register_shutdown_function(function() {
+register_shutdown_function(function() {
     if ($error = error_get_last()) 
         IB::log('Fatal error: '.$error['message'].' in '.$error['file'].' on line '.$error['line'], false);
 });
- */
+

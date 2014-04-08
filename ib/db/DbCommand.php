@@ -252,14 +252,19 @@ class DbCommand
             elseif($method=='queryColumn')
                 $r=$sth->fetchColumn();
             elseif($method=='queryScalar')
-                $r=$sth->fetch()[0];
+            {
+                $tmp=$sth->fetch();
+                $r=$tmp[0];
+            }
             elseif($method=='queryAll')
                 $r=$sth->fetchAll();
             $this->reset();
-            if(is_null($sth->errorInfo()[2]))
+            
+            $e_info=$sth->errorInfo();
+            if(is_null($e_info[2]))
                 return $r;
             else
-                throw new AppException('Execute SQL Error :'.$sth->errorInfo()[2]);
+                throw new AppException('Execute SQL Error :'.$e_info[2]);
         }
         catch(AppException $e)
         {
@@ -282,7 +287,10 @@ class DbCommand
             {
                 $result=$this->_conn->exec($this->_sql);
                 if($this->_conn->errorCode()!='00000')
-                    throw new AppException('Execute SQL Error :'.$this->_conn->errorInfo()[2]);
+                {
+                    $e_info=$this->_conn->errorInfo();
+                    throw new AppException('Execute SQL Error :'.$e_info[2]);
+                }
             }
             else
             {
@@ -298,7 +306,10 @@ class DbCommand
                 }
                 $result=$sth->execute();
                 if($sth->errorCode()!='00000')
-                    throw new AppException('Execute SQL Error :'.$sth->errorInfo()[2]);
+                {
+                    $e_info=$sth->errorInfo();
+                    throw new AppException('Execute SQL Error :'.$e_info[2]);
+                }
                 
             }
             $this->reset();
