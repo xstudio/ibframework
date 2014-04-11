@@ -81,7 +81,7 @@ class IB
             set_include_path($include_path);
         }
         else if(file_exists($file=dirname($config).'/protected/'.$ph_path.'/'.ucfirst($ph[count($ph)-1]).'.php')) //file
-            include($file);
+            require($file);
     }
     /**
      * record runtime log
