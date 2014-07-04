@@ -2,9 +2,9 @@ PHP IB Framework
 ===========
 
       ╔------------------------------------------------╗
-      ┆                 Power By @小笙_                ┆
-      ┆         http://yueqian.sinaapp.com             ┆
-      ┆  QQ：327719167  Email：hucsecurity@163.com     ┆
+      ┆                 Power By @小笙_               ┆
+      ┆         http://yueqian.sinaapp.com            ┆
+      ┆  QQ：327719167  Email： i@xstudio.me          ┆
       ╚------------------------------------------------╝
 
 注意：在SiteController里已有部分已开发完成的功能示例。      
